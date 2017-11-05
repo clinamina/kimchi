@@ -1,0 +1,169 @@
+<html>
+<head>
+  <title>clinamina</title>
+
+  <style>
+  body {
+    margin: 0;
+  }
+  canvas
+  {
+    width: 100%;
+    height: 100%;
+  }
+
+  </style>
+</head>
+
+<body>
+  <script src="js/three.js"></script>
+  <script src="js/OrbitControls.js"></script>
+
+  <script>
+
+  var scene, camera, renderer, render;
+  var width, height;
+  var loader;
+  var geometry, material, cube, cubeMaterials;
+  var heart, heart1, heart2, heart3;
+  var update, time;
+
+  init();
+  animate();
+
+
+function init(){
+
+  scene = new THREE.Scene( );
+  camera = new THREE.PerspectiveCamera ( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  renderer = new THREE.WebGLRenderer ( );
+  controls = new THREE.OrbitControls( camera,renderer.domElement );
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  document.body.appendChild (renderer.domElement);
+
+  window.addEventListener ( 'resize', function( ) {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    renderer.setSize( width, height );
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix ( );
+  } );
+
+		loader = new THREE.ObjectLoader( );
+
+		loader.load( 'models/heart.json', function ( heart1 ) {
+
+        heart1.position.set( 0, 4, 0 );
+        scene.add( heart1 );
+			}
+		);
+
+    loader.load( 'models/heart.json', function ( heart2 ) {
+
+        heart2.position.set( 0, 2, 0 );
+        scene.add( heart2 );
+      }
+    );
+    loader.load( 'models/heart.json', function ( heart2 ) {
+
+        heart2.position.set( 0, -2, 0 );
+        scene.add( heart2 );
+      }
+    );
+    loader.load( 'models/heart.json', function ( heart2 ) {
+
+        heart2.position.set( 0, -4, 0 );
+        scene.add( heart2 );
+      }
+    );
+
+geometry = new THREE.BoxGeometry ( 1, 1, 1 );
+
+cubeMaterials =
+[
+        new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'kimchimg/2.png' ), side: THREE.DoubleSide } ),
+        new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'kimchimg/3.png' ), side: THREE.DoubleSide } ),
+  	    new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'kimchimg/4.png' ), side: THREE.DoubleSide } ), // Left side
+  			new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'kimchimg/9.jpg' ), side: THREE.DoubleSide } ), // Top side
+  			new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'kimchimg/11.jpg' ), side: THREE.DoubleSide } ), // Bottom side
+  			new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'kimchimg/8.jpg' ), side: THREE.DoubleSide } ), // Front side
+  			new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'kimchimg/9.jpg' ), side: THREE.DoubleSide } ) // Back side
+];
+
+// add color to a surface: ( { color: 0xF00FFF, wireframe: true} );
+( { color: 0xF00FFF, wireframe: true} );
+ material = new THREE.MeshFaceMaterial( cubeMaterials );
+cube = new THREE.Mesh( geometry, material );
+scene.add ( cube );
+
+camera.position.z = 3;
+
+		// ceilingGeometry = new THREE.CubeGeometry( 10, 1, 10 );
+		// ceilingMaterial = new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'img/4.jpg' ), side: THREE.DoubleSide } );
+		// ceilingCube = new THREE.Mesh( ceilingGeometry, ceilingMaterial );
+		// ceilingCube.position.y = 7;
+		// scene.add( ceilingCube );
+    //
+		// leftWallGeometry = new THREE.CubeGeometry( 1, 10, 10 );
+		// leftWallMaterial = new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'img/4.jpg' ), side: THREE.DoubleSide } );
+		// leftWallCube = new THREE.Mesh( leftWallGeometry, leftWallMaterial );
+		// leftWallCube.position.x = -7;
+		// scene.add( leftWallCube );
+
+		rightWallGeometry = new THREE.CubeGeometry( 1, 10, 10 );
+		rightWallMaterial = new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'kimchimg/2.png' ), side: THREE.DoubleSide } );
+		rightWallCube = new THREE.Mesh( rightWallGeometry, rightWallMaterial );
+		rightWallCube.position.x = 7;
+		scene.add( rightWallCube );
+    //
+	  // floorGeometry = new THREE.CubeGeometry( 10, 1, 10 );
+		// floorMaterial = new THREE.MeshLambertMaterial( { map: new THREE.TextureLoader( ).load( 'img/4.jpg' ), side: THREE.DoubleSide } );
+		// floorCube = new THREE.Mesh( floorGeometry, floorMaterial );
+		// floorCube.position.y = -7;
+		// scene.add( floorCube );
+
+ambientLight = new THREE.AmbientLight (0xFFFFFF, 1.5);
+scene.add (ambientLight);
+
+    light1 = new THREE.PointLight ( 0x0000FF, 1, 50 );
+		scene.add( light1 );
+		light2 = new THREE.PointLight ( 0x0000FF, 1, 50 );
+    scene.add( light2 );
+		light3 = new THREE.PointLight ( 0x0000FF, 1, 50 );
+		scene.add( light3 );
+
+directionalLight = new THREE.DirectionalLight (0xFFFFF, 1);
+directionalLight.position.set (0, 1, 0);
+scene.add(directionalLight);
+
+};
+
+function animate() {
+
+  requestAnimationFrame(animate);
+
+  cube.rotation.x += 0.1;
+  cube.rotation.y += 0.2;
+
+time = Date.now( ) * 0.0005;
+
+  light1.position.x = Math.sin( time * 20 ) * 30;
+  light1.position.y = Math.cos( time * 80 ) * 40;
+  light1.position.z = Math.cos( time * 40 ) * 30;
+
+  light2.position.x = Math.cos( time * 30 ) * 30;
+  light2.position.y = Math.sin( time * 70 ) * 40;
+  light2.position.z = Math.sin( time * 10 ) * 30;
+
+  light3.position.x = Math.sin( time * 30 ) * 30;
+  light3.position.y = Math.cos( time * 50 ) * 40;
+  light3.position.z = Math.sin( time * 120) * 30;
+
+  renderer.render(scene, camera);
+
+};
+
+</script>
+</body>
+</html>

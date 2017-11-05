@@ -1,0 +1,92 @@
+<html>
+<head>
+  <title>clinamina</title>
+
+  <style>
+  body {
+    margin: 0;
+    overflow: hidden;
+
+  };
+  canvas  {
+    width: 100%;
+    height: 100%;
+  };
+
+  </style>
+</head>
+
+<body>
+  <script src="js/three.js"></script>
+  <script src="js/OrbitControls.js"></script>
+
+
+  <script>
+
+var camera, scene, renderer;
+var geometry, material, mesh;
+var loader;
+var controls;
+var lights;
+
+
+init();
+animate();
+
+function init() {
+
+	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 1000 );
+	camera.position.z = 1;
+
+  controls = new THREE.OrbitControls( camera );
+  controls.update();
+
+	scene = new THREE.Scene();
+
+  window.addEventListener ( 'resize', function( )
+  {
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    renderer.setSize( width, height );
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix ( );
+  } );
+
+	// geometry = new THREE.SphereGeometry( 0.2, 0.2, 0.2 );
+	// material = new THREE.MeshNormalMaterial();
+  //
+	// mesh = new THREE.Mesh( geometry, material );
+	// scene.add( mesh );
+
+  loader = new THREE.ObjectLoader( );
+  loader.load( 'hands.json', function ( obj1 ) {
+      scene.add( obj1 );
+      obj1.scale.set (20, 20, 20);
+      obj1.position.set(0, 0, 0);
+    }
+  );
+
+  light = new THREE.AmbientLight( 0x404040 ); // soft white light
+  scene.add( light );
+
+
+	renderer = new THREE.WebGLRenderer( { antialias: true } );
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	document.body.appendChild( renderer.domElement );
+
+}
+
+function animate() {
+
+	requestAnimationFrame( animate );
+
+	// mesh.rotation.x += 0.01;
+	// mesh.rotation.y += 0.01;
+
+	renderer.render( scene, camera );
+
+};
+
+</script>
+</body>
+</html>
