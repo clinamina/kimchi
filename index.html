@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Torus</title>
+    <title>Torus Knot</title>
     <style>
     body {
     margin: 0;
@@ -17,11 +17,9 @@
   <script src="js/three.js"></script>
   <script src="js/OrbitControls.js"></script>
   <script src="js/Stats.js"></script>
-  <script src="js/dat.gui.min.js"></script>
 
 <script>
 
-var mesh;
 var mx;
 
 init();
@@ -38,7 +36,7 @@ function init() {
   controls = new THREE.OrbitControls( camera );
   controls.update();
 
-  window.addEventListener ( 'resize', function( )
+  window.addEventListener ( 'requestAnimationFramesize', function( )
   {
     var width = window.innerWidth;
     var height = window.innerHeight;
@@ -47,31 +45,11 @@ function init() {
     camera.updateProjectionMatrix ( );
   } );
 
-  mx = 0;
-
-	geometry = new THREE.TorusGeometry( 10, 3, 16, 100 );
-  material = new THREE.MeshNormalMaterial({ color: 0xF00FFF, wireframe: true});
-
-  for ( var i = 0; i < 9; i++ ) {
-    mesh = new THREE.Mesh( geometry, material );
-    mesh.position.x = mx;
-	  scene.add( mesh );
-    mx += 70, -70;
-  }
-
-  for ( var i = 0; i < 10; i++ ) {
-    mesh = new THREE.Mesh( geometry, material );
-    mesh.position.y = mx;
-    scene.add( mesh );
-    mx += -90, 90;
-  }
-
-  for ( var i = 0; i < 10; i++ ) {
-    mesh = new THREE.Mesh( geometry, material );
-    mesh.position.z = mx;
-    scene.add( mesh );
-    mx += 90, -90;
-  }
+	geometry = new THREE.TorusKnotGeometry( 25, 1, 103, 33, 1, 2 );
+  material = new THREE.MeshNormalMaterial
+    //use MeshBasicMaterial for solid Color ({color: 0xf00ff0});
+  torusKnot = new THREE.Mesh(geometry,material);
+	  scene.add( torusKnot );
 
   light = new THREE.AmbientLight( 0x404040 ); // soft white light
   scene.add( light );
@@ -86,28 +64,8 @@ function init() {
 
 function animate() {
 	requestAnimationFrame( animate );
-	// mesh.rotation.x += 0.005;
-	// mesh.rotation.y += 0.001;
-  scene.children[0].rotation.x += 0.01;
-  scene.children[1].rotation.x += 0.02;
-  scene.children[2].rotation.x += 0.03;
-  scene.children[3].rotation.x += 0.04;
-  scene.children[4].rotation.x += 0.05;
-  scene.children[5].rotation.x += 0.06;
-  scene.children[6].rotation.x += 0.07;
-  scene.children[7].rotation.x += 0.08;
-  scene.children[8].rotation.x += 0.09;
-  scene.children[9].rotation.x += 0.1;
-  scene.children[10].rotation.x += 0.01;
-  scene.children[11].rotation.x += 0.02;
-  scene.children[12].rotation.x += 0.03;
-  scene.children[13].rotation.x += 0.04;
-  scene.children[14].rotation.x += 0.05;
-  scene.children[15].rotation.x += 0.06;
-  scene.children[16].rotation.x += 0.07;
-  scene.children[17].rotation.x += 0.08;
-  scene.children[18].rotation.x += 0.09;
-  scene.children[19].rotation.x += 0.1;
+	torusKnot.rotation.x += 0.01;
+	torusKnot.rotation.y += 0.01;
 	renderer.render( scene, camera );
 };
 
