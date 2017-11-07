@@ -45,11 +45,27 @@ function init() {
     camera.updateProjectionMatrix ( );
   } );
 
-	geometry = new THREE.TorusKnotGeometry( 25, 1, 103, 33, 1, 2 );
+mx = 0
+	geometry = new THREE.TorusKnotGeometry( 25, 0.4, 103, 33, 3, 3 );
   material = new THREE.MeshNormalMaterial
     //use MeshBasicMaterial for solid Color ({color: 0xf00ff0});
-  torusKnot = new THREE.Mesh(geometry,material);
-	  scene.add( torusKnot );
+
+    for ( var i = 0; i < 9; i++ ) {
+      torusKnot = new THREE.Mesh( geometry, material );
+      torusKnot.position.x = mx;
+      scene.add( torusKnot );
+      mx += 70;
+    };
+     for ( var i = 0; i < 11; i++ ) {
+        torusKnot = new THREE.Mesh( geometry, material );
+        torusKnot.position.x = mx;
+        scene.add( torusKnot );
+        mx += -70;
+      };
+
+    //   torusKnot = new THREE.Mesh(geometry,material);
+    scene.add( torusKnot );
+
 
   light = new THREE.AmbientLight( 0x404040 ); // soft white light
   scene.add( light );
@@ -64,8 +80,18 @@ function init() {
 
 function animate() {
 	requestAnimationFrame( animate );
-	torusKnot.rotation.x += 0.01;
-	torusKnot.rotation.y += 0.01;
+	// torusKnot.rotation.x += 0.01;
+	// torusKnot.rotation.y += 0.01;
+  scene.children[0].rotation.x += 0.01;
+  scene.children[1].rotation.x += 0.01;
+  scene.children[2].rotation.x += 0.01;
+  scene.children[3].rotation.x += 0.01;
+  scene.children[4].rotation.x += 0.01;
+  scene.children[5].rotation.x += 0.01;
+  scene.children[6].rotation.x += 0.01;
+  scene.children[7].rotation.x += 0.01;
+  scene.children[8].rotation.x += 0.01;
+  scene.children[9].rotation.x += 0.01;
 	renderer.render( scene, camera );
 };
 
