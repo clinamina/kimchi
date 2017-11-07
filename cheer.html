@@ -1,0 +1,117 @@
+<html>
+<head>
+    <title>Torus</title>
+    <style>
+    body {
+    margin: 0;
+    overflow: hidden;
+    };
+    canvas {
+    width: 100%;
+    height: 100%;
+    };
+    </style>
+</head>
+
+<body>
+  <script src="js/three.js"></script>
+  <script src="js/OrbitControls.js"></script>
+  <script src="js/Stats.js"></script>
+  <script src="js/dat.gui.min.js"></script>
+
+<script>
+
+var mesh;
+var mx;
+
+init();
+animate();
+
+function init() {
+  scene = new THREE.Scene();
+	camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 0.1, 10000 );
+  camera.position.x = -30;
+       camera.position.y = 40;
+       camera.position.z = 50;
+       camera.lookAt(new THREE.Vector3(0, -10, 0));
+
+  controls = new THREE.OrbitControls( camera );
+  controls.update();
+
+  window.addEventListener ( 'resize', function( )
+  {
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    renderer.setSize( width, height );
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix ( );
+  } );
+
+  mx = 0;
+
+	geometry = new THREE.TorusGeometry( 10, 3, 16, 100 );
+  material = new THREE.MeshNormalMaterial({ color: 0xF00FFF, wireframe: true});
+
+  for ( var i = 0; i < 9; i++ ) {
+    mesh = new THREE.Mesh( geometry, material );
+    mesh.position.x = mx;
+	  scene.add( mesh );
+    mx += 70, -70;
+  }
+
+  for ( var i = 0; i < 10; i++ ) {
+    mesh = new THREE.Mesh( geometry, material );
+    mesh.position.y = mx;
+    scene.add( mesh );
+    mx += -90, 90;
+  }
+
+  for ( var i = 0; i < 10; i++ ) {
+    mesh = new THREE.Mesh( geometry, material );
+    mesh.position.z = mx;
+    scene.add( mesh );
+    mx += 90, -90;
+  }
+
+  light = new THREE.AmbientLight( 0x404040 ); // soft white light
+  scene.add( light );
+
+	renderer = new THREE.WebGLRenderer( { antialias: true } );
+  // renderer.setClearColor(new THREE.Color(0xF00FFF, 1.0));
+	renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.shadowMapEnabled = true;
+	document.body.appendChild( renderer.domElement );
+  var step = 0;
+  }
+
+function animate() {
+	requestAnimationFrame( animate );
+	// mesh.rotation.x += 0.005;
+	// mesh.rotation.y += 0.001;
+  scene.children[0].rotation.x += 0.01;
+  scene.children[1].rotation.x += 0.02;
+  scene.children[2].rotation.x += 0.03;
+  scene.children[3].rotation.x += 0.04;
+  scene.children[4].rotation.x += 0.05;
+  scene.children[5].rotation.x += 0.06;
+  scene.children[6].rotation.x += 0.07;
+  scene.children[7].rotation.x += 0.08;
+  scene.children[8].rotation.x += 0.09;
+  scene.children[9].rotation.x += 0.1;
+  scene.children[10].rotation.x += 0.01;
+  scene.children[11].rotation.x += 0.02;
+  scene.children[12].rotation.x += 0.03;
+  scene.children[13].rotation.x += 0.04;
+  scene.children[14].rotation.x += 0.05;
+  scene.children[15].rotation.x += 0.06;
+  scene.children[16].rotation.x += 0.07;
+  scene.children[17].rotation.x += 0.08;
+  scene.children[18].rotation.x += 0.09;
+  scene.children[19].rotation.x += 0.1;
+	renderer.render( scene, camera );
+};
+
+
+</script>
+</body>
+</html>
