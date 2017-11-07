@@ -21,6 +21,7 @@
 <script>
 
 var mx;
+var cone;
 
 init();
 animate();
@@ -62,9 +63,98 @@ mx = 0
         scene.add( torusKnot );
         mx += -70;
       };
-
     //   torusKnot = new THREE.Mesh(geometry,material);
     scene.add( torusKnot );
+
+    var geometry = new THREE.ConeGeometry( 7, 25, 32 );
+    var material = new THREE.MeshNormalMaterial( {color: 0xffff00} );
+    cone = new THREE.Mesh( geometry, material );
+    scene.add( cone );
+
+    cone.rotation.x = Math.PI / -2;
+    cone.translateY( 22 );
+    cone.translateX( 12 );
+
+    for ( var i = 0; i < 9; i++ ) {
+      cone = new THREE.Mesh( geometry, material );
+      cone.position.x = mx;
+      scene.add( cone );
+      mx += 70;
+    };
+
+    scene.children[21].rotation.x = Math.PI / -2;
+    scene.children[21].translateY( 22 );
+    scene.children[21].translateX( 12 );
+    scene.children[22].rotation.x = Math.PI / -2;
+    scene.children[22].translateY( 22 );
+    scene.children[22].translateX( 12 );
+    scene.children[23].rotation.x = Math.PI / -2;
+    scene.children[23].translateY( 22 );
+    scene.children[23].translateX( 12 );
+    scene.children[24].rotation.x = Math.PI / -2;
+    scene.children[24].translateY( 22 );
+    scene.children[24].translateX( 12 );
+    scene.children[25].rotation.x = Math.PI / -2;
+    scene.children[25].translateY( 22 );
+    scene.children[25].translateX( 12 );
+    scene.children[26].rotation.x = Math.PI / -2;
+    scene.children[26].translateY( 22 );
+    scene.children[26].translateX( 12 );
+    scene.children[27].rotation.x = Math.PI / -2;
+    scene.children[27].translateY( 22 );
+    scene.children[27].translateX( 12 );
+    scene.children[28].rotation.x = Math.PI / -2;
+    scene.children[28].translateY( 22 );
+    scene.children[28].translateX( 12 );
+    scene.children[29].rotation.x = Math.PI / -2;
+    scene.children[29].translateY( 22 );
+    scene.children[29].translateX( 12 );
+
+    var geometry = new THREE.ConeGeometry( 11, 27, 32 );
+    var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+    cone2 = new THREE.Mesh( geometry, material )
+    scene.add( cone );
+
+    cone.rotation.x = Math.PI / -2;
+    cone.translateY( 22 );
+    cone.translateX( 12 );
+
+    for ( var i = 0; i < 9; i++ ) {
+      cone = new THREE.Mesh( geometry, material );
+      cone.position.x = mx;
+      scene.add( cone );
+      mx += 70;
+    };
+
+    // scene.children[30].rotation.x = Math.PI / -2;
+    // scene.children[30].translateY( 22 );
+    // scene.children[30].translateX( 12 );
+    // scene.children[31].rotation.x = Math.PI / -2;
+    // scene.children[31].translateY( 22 );
+    // scene.children[31].translateX( 12 );
+    // scene.children[32].rotation.x = Math.PI / -2;
+    // scene.children[32].translateY( 22 );
+    // scene.children[32].translateX( 12 );
+    // scene.children[33].rotation.x = Math.PI / -2;
+    // scene.children[33].translateY( 22 );
+    // scene.children[33].translateX( 12 );
+    // scene.children[34].rotation.x = Math.PI / -2;
+    // scene.children[34].translateY( 22 );
+    // scene.children[34].translateX( 12 );
+    // scene.children[35].rotation.x = Math.PI / -2;
+    // scene.children[35].translateY( 22 );
+    // scene.children[35].translateX( 12 );
+    // scene.children[36].rotation.x = Math.PI / -2;
+    // scene.children[36].translateY( 22 );
+    // scene.children[36].translateX( 12 );
+    // scene.children[37].rotation.x = Math.PI / -2;
+    // scene.children[38].translateY( 22 );
+    // scene.children[39].translateX( 12 );
+    // scene.children[40].rotation.x = Math.PI / -2;
+    // scene.children[40].translateY( 22 );
+    // scene.children[40].translateX( 12 );
+
+
 
 
   light = new THREE.AmbientLight( 0x404040 ); // soft white light
